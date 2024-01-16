@@ -1,0 +1,62 @@
+---
+title: "Lab1"
+author: "Justin Maynard"
+date: "2024-01-16"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Lab 1
+
+## Question 1
+
+```{r Measures of location}
+#x = tree heights in meter
+#y = tree diameters in centimeters
+
+x <- c(0,1,2,3,4,5,6,7,8,9,10)
+y <- c(2.96, 4.20, 2.84, 3.84, 6.57, 6.95, 9.32, 10.57, 9.72, 11.57, 11.53)
+xy <- data.frame(x = x, y = y)
+
+
+print(paste("The mean tree height is", round(mean(xy$x)) , "meters."))
+print(paste("The mean tree diameter is", round(mean(xy$y)), "centimeters."))
+
+print(paste("The median tree height is", quantile(xy$x, probs = .50) , "meters."))
+print(paste("The median tree diameter is", quantile(xy$y, probs = .50), "centimeters."))
+
+
+```
+
+## Question 2
+
+```{r Measures of spread}
+print(paste("The range of tree height is", (range(xy$x)) , "meters."))
+print(paste("The range of tree diameter is", (range(xy$y)) , "centimeters."))
+
+print(paste("The variance of tree height is", (var(xy$x)) , "meters."))
+print(paste("The variance of tree diameter is", round((var(xy$y)),2) , "centimeters."))
+
+print(paste("The standard deviation of tree height is", round((sd(xy$x)),2) , "meters."))
+print(paste("The standard deviation of tree diameter is", round((sd(xy$y)),2) , "centimeters."))
+
+```
+## Question 3
+
+```{r Interpret and Communicate Results}
+height_diameter_scatter <- ggplot(xy, aes(x = x, y = y)) +
+  geom_point() + 
+  xlab("Tree height in meters") +
+  ylab("Tree diameter in centimeters") + 
+  geom_abline(slope = 2, intercept = 1) + 
+  geom_smooth(method = "lm")
+
+#Hypothesis: There is a positive linear relationship between tree height and diameter
+```
+
+
+
