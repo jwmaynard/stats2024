@@ -8,6 +8,8 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(ggplot2)
+library(ggpmisc)
 ```
 
 # Lab 1
@@ -20,14 +22,19 @@ library(tidyverse)
 
 x <- c(0,1,2,3,4,5,6,7,8,9,10)
 y <- c(2.96, 4.20, 2.84, 3.84, 6.57, 6.95, 9.32, 10.57, 9.72, 11.57, 11.53)
-xy <- data.frame(x = x, y = y)
+xy <- data.frame(x = x, y = y) 
+#create data frame, column 'x' has values from list 'x', column 'y' has values from list 'y'
 
 
-print(paste("The mean tree height is", round(mean(xy$x)) , "meters."))
-print(paste("The mean tree diameter is", round(mean(xy$y)), "centimeters."))
+print(paste("The mean tree height is", round(mean(xy$x), 2) , "meters.")) 
+#calculate mean of height, round two places
+print(paste("The mean tree diameter is", round(mean(xy$y), 2), "centimeters.")) 
+#calculate mean of diameter, round to two places
 
 print(paste("The median tree height is", quantile(xy$x, probs = .50) , "meters."))
+#calculate median of height using 50th quantile
 print(paste("The median tree diameter is", quantile(xy$y, probs = .50), "centimeters."))
+#calculate median of diameter using 50th quantile
 
 
 ```
@@ -35,14 +42,20 @@ print(paste("The median tree diameter is", quantile(xy$y, probs = .50), "centime
 ## Question 2
 
 ```{r Measures of spread}
-print(paste("The range of tree height is", (range(xy$x)) , "meters."))
-print(paste("The range of tree diameter is", (range(xy$y)) , "centimeters."))
+print(paste("The range of tree height is", (range(xy$x)) , "meters.")) 
+#calculate range of tree height
+print(paste("The range of tree diameter is", (range(xy$y)) , "centimeters.")) 
+#calculate diameter of tree height
 
-print(paste("The variance of tree height is", (var(xy$x)) , "meters."))
-print(paste("The variance of tree diameter is", round((var(xy$y)),2) , "centimeters."))
+print(paste("The variance of tree height is", round((var(xy$x)),2) , "meters.")) 
+#calculate variance of tree height
+print(paste("The variance of tree diameter is", round((var(xy$y)),2) , "centimeters.")) 
+#calculate variance of tree diameter
 
-print(paste("The standard deviation of tree height is", round((sd(xy$x)),2) , "meters."))
-print(paste("The standard deviation of tree diameter is", round((sd(xy$y)),2) , "centimeters."))
+print(paste("The standard deviation of tree height is", round((sd(xy$x)),2) , "meters.")) 
+#calculate standard deviation of tree height
+print(paste("The standard deviation of tree diameter is", round((sd(xy$y)),2) , "centimeters.")) 
+#calculate standard deviation of tree diameter
 
 ```
 ## Question 3
@@ -52,10 +65,17 @@ height_diameter_scatter <- ggplot(xy, aes(x = x, y = y)) +
   geom_point() + 
   xlab("Tree height in meters") +
   ylab("Tree diameter in centimeters") + 
-  geom_abline(slope = 2, intercept = 1) + 
-  geom_smooth(method = "lm")
+  ggtitle("Relationship between tree height and diameter")
+  geom_abline(slope = 2, intercept = 1) #+ 
+  #Intercept:Tree height is zero, tree diameter will be 1, 
+  #slope: for every 2 cm increase in diameter tree height will increase by 1
+  #geom_smooth(method = "lm") + #Uncomment these lines to add actual regression line
+  #stat_poly_eq(use_label(c("eq", "R2")), color = "blue")
 
-#Hypothesis: There is a positive linear relationship between tree height and diameter
+#H0: The relationship between tree height and diameter is positive
+
+print(height_diameter_scatter)
+
 ```
 
 
