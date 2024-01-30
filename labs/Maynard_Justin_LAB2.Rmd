@@ -1,5 +1,5 @@
 ---
-title: "Lab1"
+title: "Lab2"
 author: "Justin Maynard"
 date: "2024-01-16"
 output: pdf_document
@@ -36,7 +36,6 @@ MeanGr <- (afdat$MeanGr)
 nas <- is.na(MeanGr)
 afdat_2 <- MeanGr[!nas]
 
-mean(afdat, na.rm = TRUE)
 
 #histogram
 MeanGr_histogram <- ggplot(afdat, aes(x = afdat$MeanGr)) +
@@ -164,7 +163,7 @@ prob <- .30
 sample_means <- matrix(NA,nrow=n_samples)
 
 for(i in 1:n_samples){
-  x <- rbinom(1000, 1000, .30)
+  x <- rbinom(n_samples, n_samples, prob)
   sample_means[i] <- mean(x)
   }
 
@@ -192,7 +191,7 @@ lambda <- 5
 sample_means <- matrix(NA,nrow=n_samples)
 
 for(i in 1:n_samples){
-  x <- rpois(n = 1000, lambda = 5)
+  x <- rpois(n = n_samples, lambda = lambda)
   sample_means[i] <- mean(x)
   }
 
